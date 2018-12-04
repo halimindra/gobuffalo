@@ -4,11 +4,11 @@ ENV BP=$GOPATH/src/github.com/gobuffalo/buffalo
 RUN go version
 
 RUN curl -sL https://deb.nodesource.com/setup_8.x | bash \
-&& sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" >> /etc/apt/sources.list.d/pgdg.list' \
-&& wget -q https://www.postgresql.org/media/keys/ACCC4CF8.asc -O - | apt-key add - \
-&& apt-get update \
-&& apt-get install -y -q build-essential nodejs postgresql postgresql-contrib libpq-dev vim \
-&& rm -rf /var/lib/apt/lists/*
+    && sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" >> /etc/apt/sources.list.d/pgdg.list' \
+    && wget -q https://www.postgresql.org/media/keys/ACCC4CF8.asc -O - | apt-key add - \
+    && apt-get update \
+    && apt-get install -y -q build-essential nodejs sqlite3 libsqlite3-dev postgresql postgresql-contrib libpq-dev mysql-client vim \
+    && rm -rf /var/lib/apt/lists/*
 
 RUN service postgresql start && \
     su -c "psql -c \"ALTER USER postgres  WITH PASSWORD 'postgres';\"" - postgres
